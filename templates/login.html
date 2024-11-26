@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>登入</h2>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+<form method="post">
+    <label for="username">賬號：</label>
+    <input type="text" name="username" required><br>
+    
+    <label for="password">密碼：</label>
+    <input type="password" name="password" required><br>
+    
+    <button type="submit">登入</button>
+</form>
+
+<p>還沒有賬號嗎？ <a href="{{ url_for('register') }}">註冊</a></p>
+{% endblock %}

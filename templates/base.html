@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}電商系統{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>電商系統</h1>
+        {% if current_user.is_authenticated %}
+            <p>歡迎，{{ current_user.username }} </p>
+        {% endif %}
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
