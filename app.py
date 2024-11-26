@@ -55,7 +55,7 @@ def register():
         existing_user = User.query.filter_by(username=username).first()
         
         if existing_user:
-            flash('賬號已存在，請重新選擇賬號名稱。')
+            flash('帳號已存在，請重新選擇帳號名稱。')
             return redirect(url_for('register'))
         
         # 建立新用戶並加密密碼
@@ -82,7 +82,7 @@ def login():
             flash(f'歡迎，{user.username}！登入成功！')
             return redirect(url_for('index'))
         else:
-            flash('登入失敗，請檢查賬號和密碼。')
+            flash('登入失敗，請檢查帳號和密碼。')
     
     return render_template('login.html')
 
