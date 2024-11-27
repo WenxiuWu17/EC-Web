@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>註冊新賣家</h2>
-<form method="post">
-    <label for="username">帳號：</label>
-    <input type="text" name="username" required><br>
-    
-    <label for="password">密碼：</label>
-    <input type="password" name="password" required><br>
-    
-    <button type="submit">註冊</button>
-</form>
+<div class="col-md-6 offset-md-3">
+    <h2>註冊新賣家</h2>
+    <form method="post" class="card p-4">
+        <div class="mb-3">
+            <label for="username" class="form-label">帳號</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">密碼</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">註冊</button>
+    </form>
+</div>
 {% endblock %}

@@ -130,17 +130,34 @@ def add_product():
 @login_required
 def edit_product(id):
     product = Product.query.get_or_404(id)
+
+    # 確保只有商品的擁有者可以修改
     if product.seller_id != current_user.id:
         flash('您無權限修改此商品')
         return redirect(url_for('index'))
 
     if request.method == 'POST':
-        product.price = int(request.form['price'])
-        product.quantity = int(request.form['quantity'])
+        new_price = int(request.form['price'])
+        new_quantity = int(request.form['quantity'])
+
+        # 查找同名且價格相同的商品（排除當前商品）
+        existing_product = Product.query.filter_by(name=product.name, price=new_price, seller_id=current_user.id).filter(Product.id != product.id).first()
+
+        if existing_product:
+            # 如果找到匹配的商品，合併數量並刪除當前商品
+            existing_product.quantity += new_quantity
+            db.session.delete(product)
+        else:
+            # 如果沒有匹配商品，更新價格和數量
+            product.price = new_price
+            product.quantity = new_quantity
+
         db.session.commit()
+        flash('商品已成功更新！')
         return redirect(url_for('index'))
-    
+
     return render_template('edit_product.html', product=product)
+
 
 # 刪除商品
 @app.route('/delete/<int:id>', methods=['POST'])
